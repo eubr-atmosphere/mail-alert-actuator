@@ -1,0 +1,14 @@
+{
+    "action" : "sendMail",
+    "resourceId" : 3, 
+    "messageId": 44,
+    "timestamp": 1539608150,
+    "configuration": [
+        {"keyName": "senderEmail", "value": "default"},
+        {"keyName": "senderPassword", "value": "default"},
+        {"keyName": "subject", "value": "default"},
+        {"keyName": "message", "value":  "default"},
+        {"keyName": "receiverEmail", "value":  "email1,email2,email3..."},
+        {"keyName": "smtpHost", "value":  "default"}
+    ]
+}
