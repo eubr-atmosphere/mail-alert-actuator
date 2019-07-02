@@ -1,6 +1,6 @@
 package actuator.core;
 
-import actuator.DemoActuatorApplication;
+import actuator.util.EmailSender;
 import eubr.atmosphere.tma.actuator.Actuator;
 import eubr.atmosphere.tma.actuator.ActuatorPayload;
 import eubr.atmosphere.tma.actuator.Configuration;
@@ -20,11 +20,6 @@ public class MailActuator implements Actuator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MailActuator.class);
 
-    @RequestMapping("/initialize")
-    public void initialize() {
-        // This is for the conceptual model
-        LOGGER.info("Initialize :)");
-    }
 
     @RequestMapping(value = "/act", method = RequestMethod.POST)
     public void act(@RequestBody ActuatorPayload actuatorPayload) {
@@ -40,19 +35,20 @@ public class MailActuator implements Actuator {
         String sender = confs.get("senderEmail").getValue();
         String senderPasswd = confs.get("senderPassword").getValue();
         String smtpHost = confs.get("smtpHost") == null ? null : confs.get("smtpHost").getValue();
+        int port;
+
+        if(confs.get("port") == null) {
+            port = -1;
+        } else {
+            port = Integer.valueOf(confs.get("port").getValue());
+        }
 
         try {
-            new EmailSender(sender, receivers, senderPasswd, subject, message, smtpHost).sendEmail();
+            new EmailSender(sender, receivers, senderPasswd, subject, message, smtpHost, port).sendEmail();
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage());
         }
 
 
-    }
-
-    @RequestMapping("/register")
-    protected void register(Actuator callback) {
-        // This is for the conceptual model
-        LOGGER.info("Register!");
     }
 }
