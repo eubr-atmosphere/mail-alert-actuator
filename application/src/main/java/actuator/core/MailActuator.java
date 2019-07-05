@@ -23,6 +23,18 @@ public class MailActuator implements Actuator {
 
     @RequestMapping(value = "/act", method = RequestMethod.POST)
     public void act(@RequestBody ActuatorPayload actuatorPayload) {
+        switch (actuatorPayload.getAction()) {
+            case "sendMail":
+                sendMail(actuatorPayload);
+                break;
+            default:
+                LOGGER.warn("Not defined action");
+                break;
+        }
+
+    }
+
+    private void sendMail(ActuatorPayload actuatorPayload) {
         Map<String, Configuration> confs = new HashMap<>();
 
         for(Configuration conf: actuatorPayload.getConfiguration()) {
@@ -48,7 +60,5 @@ public class MailActuator implements Actuator {
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage());
         }
-
-
     }
 }
