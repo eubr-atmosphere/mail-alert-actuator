@@ -1,8 +1,10 @@
-package actuator.util;
+package eubr.atmosphere.tma.actuator.core;
 
-import actuator.constants.Constants;
+import eubr.atmosphere.tma.actuator.constants.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import eubr.atmosphere.tma.actuator.utils.PropertiesUtil;
 
 import java.util.Properties;
 import javax.mail.Address;
@@ -27,8 +29,7 @@ public class EmailSender {
     private int port;
 
     public EmailSender(String sender, String receivers, String password, String subject, String body, String smtpHost, int port) throws Exception {
-        Properties properties = PropertiesUtil.readProperties(
-                Thread.currentThread().getContextClassLoader().getResource("").getPath() + "private/" + Constants.CONF_FILE_NAME);
+        Properties properties = PropertiesUtil.readProperties("/private/" + Constants.CONF_FILE_NAME);
         this.sender = sender;
         this.receivers = receivers;
         this.password = password;
