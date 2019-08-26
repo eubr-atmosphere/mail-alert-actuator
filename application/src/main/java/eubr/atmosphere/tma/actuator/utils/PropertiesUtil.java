@@ -1,6 +1,6 @@
-package actuator.util;
+package  eubr.atmosphere.tma.actuator.utils;
 
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
@@ -17,10 +17,9 @@ public class PropertiesUtil {
 
     private static Properties loadProperties(String fileName) throws Exception {
         Properties prop = new Properties();
-        FileInputStream fileInputStream = null;
-
+        InputStream fileInputStream = PropertiesUtil.class.getResourceAsStream(fileName);
+        
         try {
-            fileInputStream = new FileInputStream(fileName);
             prop.load(fileInputStream);
         } catch (FileNotFoundException var12) {
             throw new Exception(String.format("Property file %s not found.", fileName), var12);

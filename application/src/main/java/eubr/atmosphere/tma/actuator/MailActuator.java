@@ -1,14 +1,19 @@
-package actuator.core;
+package eubr.atmosphere.tma.actuator;
 
-import actuator.util.EmailSender;
+import java.io.IOException;
+import java.util.List;
+
 import eubr.atmosphere.tma.actuator.Actuator;
 import eubr.atmosphere.tma.actuator.ActuatorPayload;
 import eubr.atmosphere.tma.actuator.Configuration;
+
+import eubr.atmosphere.tma.actuator.core.EmailSender;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -20,18 +25,18 @@ public class MailActuator implements Actuator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MailActuator.class);
 
-
-    @RequestMapping(value = "/act", method = RequestMethod.POST)
+    @Override
+    @PostMapping(path = "/act")
     public void act(@RequestBody ActuatorPayload actuatorPayload) {
         switch (actuatorPayload.getAction()) {
-            case "sendMail":
-                sendMail(actuatorPayload);
-                break;
-            default:
-                LOGGER.warn("Not defined action");
-                break;
-        }
+        case "sendMail":
+            sendMail(actuatorPayload);
+            break;
 
+        default:
+            LOGGER.warn("Not defined action");
+            break;
+        }
     }
 
     private void sendMail(ActuatorPayload actuatorPayload) {
