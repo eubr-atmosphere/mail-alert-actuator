@@ -54,6 +54,12 @@
             <artifactId>mail</artifactId>
             <version>1.5.0-b01</version>
         </dependency>
+
+        <dependency>
+            <groupId>eubr.atmosphere.tma.actuator</groupId>
+            <artifactId>java-actuator-base</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 
